@@ -14,9 +14,11 @@ import java.util.Map;
 @RequestMapping("/service")
 public class GestTaxi {
 
+
     @Autowired
     ClientRepository clientRepository;
 
+    //page to see all clients
     @RequestMapping("/clients")
     public String affTous(Map<String, Object> model){
         System.out.println("Recherche clients");
