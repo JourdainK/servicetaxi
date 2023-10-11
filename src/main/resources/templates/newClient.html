@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br>
+<table border="1">
+    <th>ID</th>
+    <th>MAIL</th>
+    <th>Last Name</th>
+    <th>First name</th>
+    <th>phone number</th>
+    <tr>
+        <td th:text="${newcli.id_client}"/>
+        <td th:text="${newcli.mail}"/>
+        <td th:text="${newcli.nom_cli}"/>
+        <td th:text="${newcli.prenom_cli}"/>
+        <td th:text="${newcli.tel}"/>
+    </tr>
+</table>
+<br>
+
+<a href="/">Home page</a>
+</body>
+</html>

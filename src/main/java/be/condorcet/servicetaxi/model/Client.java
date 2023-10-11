@@ -5,8 +5,8 @@ import lombok.*;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "APITCLIENT", schema = "ORA9", catalog = "OCRL.CONDORCET.BE")
@@ -18,8 +18,11 @@ public class Client {
 
     @NonNull
     private String mail;
-
+    @NonNull
     private String nom_cli;
+    @NonNull
     private String prenom_cli;
+    @NonNull
     private String tel;
+
 }
