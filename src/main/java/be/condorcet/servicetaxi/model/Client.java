@@ -18,10 +18,10 @@ public class Client {
 
     @NonNull
     private String mail;
-    @NonNull
-    private String nom_cli;
-    @NonNull
-    private String prenom_cli;
+    @NonNull @Column(name = "nom_cli")
+    private String nomcli;
+    @NonNull @Column(name = "prenom_cli")
+    private String prenomcli;
     @NonNull
     private String tel;
 

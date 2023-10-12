@@ -12,8 +12,8 @@
     <th>Phone number</th>
     <tr th:each="unClient : ${myClients}">
         <td th:text="${unClient.mail}"/>
-        <td th:text="${unClient.nom_cli}"/>
-        <td th:text="${unClient.prenom_cli}"/>
+        <td th:text="${unClient.nomcli}"/>
+        <td th:text="${unClient.prenomcli}"/>
         <td th:text="${unClient.tel}"/>
     </tr>
 </table>

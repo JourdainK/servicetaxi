@@ -38,10 +38,10 @@ public class GestTaxi {
 
     //create a new client
     @RequestMapping("/create")
-    public String create(@RequestParam String mail, @RequestParam String nom_cli,@RequestParam String prenom_cli,
+    public String create(@RequestParam String mail, @RequestParam String nomcli,@RequestParam String prenomcli,
             @RequestParam String tel, Map<String, Object> model) {
         System.out.println("creating client");
-        Client cl = new Client(mail,nom_cli,prenom_cli,tel);
+        Client cl = new Client(mail,nomcli,prenomcli,tel);
         try{
             clientRepository.save(cl);
             //System.out.println(cl);
@@ -81,6 +81,26 @@ public class GestTaxi {
             return "error";
         }
         return "printClient";
+    }
+
+    // underscore was causing trouble in the variable from the SQL table, got help from Arthur Lorfevre And Daniele Nicolo
+    //https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
+    //avoiding the pain of having to change all the database
+
+    @RequestMapping("clientByName")
+    String selectByName(@RequestParam("nomcli")String nomcli, Map<String, Object> model) {
+        List<Client> lc;
+         try{
+             lc = clientRepository.findByNomcli(nomcli);
+             model.put("CliByName", lc);
+         }
+         catch (Exception e){
+             System.out.println("Error trying to get clients by name : " + e );
+             model.put("error", e.getMessage());
+             return "error";
+         }
+
+        return "printClientByName";
     }
 
 
