@@ -2,27 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Client(s) by name</title>
+    <title>Client</title>
 </head>
 <body>
 
-<br>
+
 <table border="1">
     <th>ID</th>
     <th>Mail</th>
     <th>Last name</th>
     <th>First name</th>
     <th>Phone number</th>
-    <tr th:each="unClient : ${CliByName}">
-        <td th:text="${CliByName.id_client}"/>
-        <td th:text="${CliByName.mail}"/>
-        <td th:text="${CliByName.nom}"/>
-        <td th:text="${CliByName.prenomcli}"/>
-        <td th:text="${CliByName.tel}"/>
+    <tr th:each="unClient : ${myClient}">
+        <td th:text="${myClient.idclient}"/>
+        <td th:text="${myClient.mail}"/>
+        <td th:text="${myClient.nomcli}"/>
+        <td th:text="${myClient.prenomcli}"/>
+        <td th:text="${myClient.tel}"/>
     </tr>
 </table>
-
-<br><br>
 
 </body>
 </html>

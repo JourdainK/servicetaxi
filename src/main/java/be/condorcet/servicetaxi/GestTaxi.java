@@ -4,14 +4,12 @@ package be.condorcet.servicetaxi;
 import be.condorcet.servicetaxi.Repositories.ClientRepository;
 import be.condorcet.servicetaxi.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/service")
@@ -58,13 +56,13 @@ public class GestTaxi {
 
     //select a client (look by id)
     @RequestMapping("/select")
-    String selection(@RequestParam("id_client") int id_client, Map<String, Object> model) {
+    String selection(@RequestParam("idclient") int idclient, Map<String, Object> model) {
 
         Client client = null;
         Optional<Client> optionalClient = null;
 
         try{
-            optionalClient = clientRepository.findById(id_client);
+            optionalClient = clientRepository.findById(idclient);
 
             if(optionalClient.isPresent())
             {
@@ -88,17 +86,17 @@ public class GestTaxi {
     //avoiding the pain of having to change all the database
 
     @RequestMapping("clientByName")
-    String selectByName(@RequestParam("nomcli")String nomcli, Map<String, Object> model) {
-        List<Client> lc;
-         try{
-             lc = clientRepository.findByNomcli(nomcli);
-             model.put("CliByName", lc);
-         }
-         catch (Exception e){
-             System.out.println("Error trying to get clients by name : " + e );
-             model.put("error", e.getMessage());
-             return "error";
-         }
+    String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
+        Optional<List<Client>> optionalClients;
+        try {
+            optionalClients = Optional.ofNullable((List<Client>) clientRepository.findClientsByNomcli(nomcli));
+            System.out.println(optionalClients);
+            model.put("myClient", optionalClients.orElseGet(Collections::emptyList));
+        } catch (Exception e) {
+            System.out.println("Error trying to get clients by name: " + e);
+            model.put("error", e.getMessage());
+            return "error";
+        }
 
         return "printClientByName";
     }
