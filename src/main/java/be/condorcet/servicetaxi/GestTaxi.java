@@ -85,6 +85,7 @@ public class GestTaxi {
     //https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
     //avoiding the pain of having to change all the database
 
+    /*
     @RequestMapping("clientByName")
     String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
         Optional<List<Client>> optionalClients;
@@ -101,5 +102,35 @@ public class GestTaxi {
         return "printClientByName";
     }
 
+     */
+
+
+    //Couldn't use the Optional<Collection<client>> correctly -> got help from ChatGPT
+    @RequestMapping("clientByName")
+    String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
+        Collection<Client> clients = new ArrayList<>();
+
+        try {
+            Optional<Collection<Client>> lc = Optional.ofNullable(clientRepository.findByNomcli(nomcli));
+
+            if (lc.isPresent()) {
+                System.out.println(lc);
+                clients = lc.orElse(new ArrayList<>()); // Convert Optional to List with default value
+                System.out.println(clients);
+                model.put("myClient", clients);
+            }
+            else{
+                System.out.println("error while fetching client by name");
+                return "error";
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error trying to get clients by name: " + e);
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "cliByName";
+    }
 
 }

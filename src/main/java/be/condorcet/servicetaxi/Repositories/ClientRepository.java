@@ -21,6 +21,6 @@ public interface ClientRepository extends JpaRepository<Client, Integer> {
      */
 
 
-   Collection<Client> findClientsByNomcli(String nomcli);
+   Collection<Client> findByNomcli(String nomcli);
 
 }
