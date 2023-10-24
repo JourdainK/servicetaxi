@@ -12,15 +12,8 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
-    //doesn't work at all, no error message, just bad request page .
-    //public List<Client> findBynomcli(String nomcli);
-    /*
-    @Query(value = "SELECT cl FROM Client cl WHERE cl.nomcli = :nomcli")
-    Collection<Client> findClientByName(@Param("nomcli") String nomcli);
+   List<Client> findByNomcli(String nomcli);
 
-     */
-
-
-   Collection<Client> findByNomcli(String nomcli);
+   List<Client> findByNomcliAndPrenomcliAndMail(String nom, String prenom, String mail);
 
 }

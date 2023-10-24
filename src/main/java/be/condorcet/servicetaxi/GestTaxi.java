@@ -1,7 +1,9 @@
 package be.condorcet.servicetaxi;
 
 
+import be.condorcet.servicetaxi.Repositories.AdresseRepository;
 import be.condorcet.servicetaxi.Repositories.ClientRepository;
+import be.condorcet.servicetaxi.model.Adresse;
 import be.condorcet.servicetaxi.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -81,42 +83,18 @@ public class GestTaxi {
         return "printClient";
     }
 
-    // underscore was causing trouble in the variable from the SQL table, got help from Arthur Lorfevre And Daniele Nicolo
-    //https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
-    //avoiding the pain of having to change all the database
-
-    /*
-    @RequestMapping("clientByName")
-    String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
-        Optional<List<Client>> optionalClients;
-        try {
-            optionalClients = Optional.ofNullable((List<Client>) clientRepository.findClientsByNomcli(nomcli));
-            System.out.println(optionalClients);
-            model.put("myClient", optionalClients.orElseGet(Collections::emptyList));
-        } catch (Exception e) {
-            System.out.println("Error trying to get clients by name: " + e);
-            model.put("error", e.getMessage());
-            return "error";
-        }
-
-        return "printClientByName";
-    }
-
-     */
-
-
     //Couldn't use the Optional<Collection<client>> correctly -> got help from ChatGPT
+    //collection because there might be more than one person with the same name
     @RequestMapping("clientByName")
     String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
-        Collection<Client> clients = new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
 
         try {
-            Optional<Collection<Client>> lc = Optional.ofNullable(clientRepository.findByNomcli(nomcli));
+            Optional<List<Client>> lc = Optional.ofNullable(clientRepository.findByNomcli(nomcli));
 
             if (lc.isPresent()) {
-                System.out.println(lc);
                 clients = lc.orElse(new ArrayList<>()); // Convert Optional to List with default value
-                System.out.println(clients);
+                //System.out.println(clients);
                 model.put("myClient", clients);
             }
             else{
@@ -131,6 +109,41 @@ public class GestTaxi {
         }
 
         return "cliByName";
+    }
+
+    @Autowired
+    AdresseRepository adresseRepository;
+
+    @RequestMapping("allAddresses")
+    String printAllAddresses(Map<String, Object> model){
+        System.out.println("seeking addresses to print");
+        List<Adresse> la;
+        try{
+            la = adresseRepository.findAll();
+            model.put("myAddresses",la);
+        }catch (Exception e){
+            System.out.println("Error while looking for addresses : " + e.getMessage());
+            return "error";
+        }
+
+        return "printAllAddresses";
+    }
+
+    @RequestMapping("createAddress")
+    String createAddress(@RequestParam Integer cp, @RequestParam String localite, @RequestParam String rue, @RequestParam String num,
+        Map<String, Object> model) {
+        System.out.println("Creating address");
+        Adresse address = new Adresse(cp, localite,rue, num);
+        try{
+            adresseRepository.save(address);
+            Collection<Adresse> colAddres = adresseRepository.findAll();
+            model.put("colAddres", colAddres);
+        }catch (Exception e){
+            System.out.println("Error while creating a new address");
+            model.put("Error" , e.getMessage());
+        }
+
+        return "TODO";
     }
 
 }

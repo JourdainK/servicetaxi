@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CLIENTS</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<table border="1">
+    <th>Id address</th>
+    <th>Zip code</th>
+    <th>Town</th>
+    <th>Street</th>
+    <th>Number</th>
+    <tr th:each="address : ${myAddresses}">
+        <td th:text="${address.idadresse}"/>
+        <td th:text="${address.cp}"/>
+        <td th:text="${address.localite}"/>
+        <td th:text="${address.rue}"/>
+        <td th:text="${address.num}"/>
+    </tr>
+</table>
+<br>
+<h3>Add an address</h3>
+<form action="service/TODO" method="get">
+    Zip code : <input type="number" name="cp"> <br>
+    Town : <input type="text" name="localite"> <br>
+    Street : <input type="text" name="prenomcli"> <br>
+    Number : <input type="text" name="tel"> <br>
+    <input type="submit" name="ok" value="Register">
+</form>
+
+<br>
+<a href="/">Home page</a>
+</body>
+</html>

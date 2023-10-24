@@ -1,8 +1,14 @@
 package be.condorcet.servicetaxi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
+// underscore was causing trouble in the variable from the SQL table, got help from Arthur Lorfevre And Daniele Nicolo
+//https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
+//avoiding the pain of having to change all the databasex²
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,5 +33,9 @@ public class Client {
     private String prenomcli;
     @NonNull
     private String tel;
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    @ToString.Exclude
+    private List<Location> llocations;
 
 }
