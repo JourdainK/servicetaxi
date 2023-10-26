@@ -118,7 +118,6 @@ class LocationServiceImplTest {
 
     @Test
     void getLocationsByTaxi() {
-        //TODO take an existing taxi, with locations, then test for a specific taxi ?
         try{
             Taxi taxinbr6 = taxiServiceImpl.read(6);
             System.out.println("taxi 6 : " + taxinbr6);

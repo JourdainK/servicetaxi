@@ -7,5 +7,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TaxiRepository extends JpaRepository<Taxi, Integer> {
- //   public List<Taxi> findTaxiByClient(Client cl);
 }

@@ -15,9 +15,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class TaxiServiceImpl implements InterfTaxiService{
+
     @Autowired TaxiRepository taxiRepository;
-    //@Autowired LocationRepository locationRepository;
-    @Autowired ClientRepository clientRepository;
 
     @Override
     public Taxi create(Taxi taxi) throws Exception {
@@ -47,9 +46,4 @@ public class TaxiServiceImpl implements InterfTaxiService{
         return taxiRepository.findAll();
     }
 
-    @Override
-    public List<Taxi> getTaxis(Client client) {
-        //List<Taxi> ltaxis = taxiRepository.findTaxiByClient(client);
-        return null;
-    }
 }
