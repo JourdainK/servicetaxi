@@ -33,15 +33,15 @@ public class LocationServiceImpl implements InterfLocationService{
     @Override
     public List<Location> getLocationsByTaxi(Taxi taxi) {
         List<Location> llocTaxi = locationRepository.findLocationByTaxi(taxi);
-        return null;
+        return llocTaxi;
     }
 
     @Override
     public List<Location> getLocationsByDate(Date date) {
-        //TODO fix this which is not working with the test
-        //List<Location> llocDate = locationRepository.findLocationByDate(date);
-        return null;
+        List<Location> llocDate = locationRepository.findLocationByDateloc(date);
+        return llocDate;
     }
+
 
     @Override
     public Location create(Location location) throws Exception {

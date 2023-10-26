@@ -17,7 +17,5 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
 
     public List<Location> findLocationByTaxi(Taxi taxi);
 
-
-    //TODO fix this which is not working with the test
-    //public List<Location> findLocationByDate(Date date);
+    public List<Location> findLocationByDateloc(Date date);
 }

@@ -25,8 +25,9 @@ public class Taxi {
     @NonNull
     private Integer nbremaxpassagers;
     @NonNull
+    //fixed scale 2, rounded half up, so we don't loose $$ on the way
+    //BigDecimal prixKm = new BigDecimal(1.99).setScale(2, RoundingMode.HALF_UP);
     private BigDecimal prixkm;
-
     @JsonIgnore
     @OneToMany(mappedBy = "taxi")
     @ToString.Exclude
