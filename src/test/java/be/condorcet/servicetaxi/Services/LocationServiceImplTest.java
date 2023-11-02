@@ -41,7 +41,7 @@ class LocationServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        //mail and id UNIQUE !
+        //mail and id UNIQUE
         try{
             client = new Client("testmail@test.com","NameTest", "SurnameTest","065123123");
             clientServiceImpl.create(client);
@@ -197,7 +197,7 @@ class LocationServiceImplTest {
             locationServiceImpl.delete(location);
             Assertions.assertThrows(Exception.class, () -> {
                 locationServiceImpl.read(location.getIdlocation());
-            });
+            },"error : location not deleted");
         }catch (Exception e){
             fail("delete failed : " + e);
         }

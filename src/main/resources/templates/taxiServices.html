@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxi service</title>
+</head>
+<body>
+<h1>Taxi</h1>
+
+
+<br><br>
+<h3>select a Taxi by ID</h3>
+<form action="taxi/seekbyid" method="get">
+  Enter an ID : <input type="number" name="idtaxi">
+  <input type="submit" name="submit2">
+</form>
+
+<br><br>
+
+<h3>Create a new Taxi</h3>
+<form action ="taxi/createTaxi" method="get">
+    <p>Taxi's registration must be in one of those two form : <br> "T-XAA-000" or "T-LAA-000"</p>
+    Registration : <input type="text" name="immatriculation" pattern="^T\-L[A-Z]{2}\-[0-9]{3}$|^T\-X[A-Z]{2}\-[0-9]{3}$"> <br>
+    Passengers max : <input type="number" name="nbremaxpassagers" step="1"> <br>
+    Price per km : <input type="number" name="prixkm" step="0.01"> <br>
+
+    <input type="submit" name="submitCreate" value="Create a taxi">
+</form>
+
+
+<br><br>
+</body>
+</html>

@@ -1,10 +1,9 @@
 package be.condorcet.servicetaxi.Services;
 
 
-import be.condorcet.servicetaxi.Repositories.ClientRepository;
 import be.condorcet.servicetaxi.Repositories.LocationRepository;
 import be.condorcet.servicetaxi.Repositories.TaxiRepository;
-import be.condorcet.servicetaxi.model.Client;
+import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import java.util.List;
 public class TaxiServiceImpl implements InterfTaxiService{
 
     @Autowired TaxiRepository taxiRepository;
+    @Autowired LocationRepository locationRepository;
 
     @Override
     public Taxi create(Taxi taxi) throws Exception {
@@ -46,4 +46,9 @@ public class TaxiServiceImpl implements InterfTaxiService{
         return taxiRepository.findAll();
     }
 
+    @Override
+    public List<Location> getLocationsByTaxi(Taxi taxi) {
+        List<Location> llocTaxi = locationRepository.findLocationByTaxi(taxi);
+        return llocTaxi;
+    }
 }
