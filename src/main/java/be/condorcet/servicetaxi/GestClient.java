@@ -16,6 +16,7 @@ import java.util.*;
 @RequestMapping("/service")
 public class GestClient {
 
+    //TODO remake the code with ClientServiceImpl
     @Autowired
     ClientRepository clientRepository;
 
@@ -84,7 +85,7 @@ public class GestClient {
 
     //Couldn't use the Optional<Collection<client>> correctly -> got help from ChatGPT
     //collection because there might be more than one person with the same name
-    @RequestMapping("clientByName")
+    @RequestMapping("/clientByName")
     String selectByName(@RequestParam("nomcli") String nomcli, Map<String, Object> model) {
         List<Client> clients = new ArrayList<>();
 
@@ -108,41 +109,6 @@ public class GestClient {
         }
 
         return "cliByName";
-    }
-
-    @Autowired
-    AdresseRepository adresseRepository;
-
-    @RequestMapping("allAddresses")
-    String printAllAddresses(Map<String, Object> model){
-        System.out.println("seeking addresses to print");
-        List<Adresse> la;
-        try{
-            la = adresseRepository.findAll();
-            model.put("myAddresses",la);
-        }catch (Exception e){
-            System.out.println("Error while looking for addresses : " + e.getMessage());
-            return "error";
-        }
-
-        return "printAllAddresses";
-    }
-
-    @RequestMapping("createAddress")
-    String createAddress(@RequestParam Integer cp, @RequestParam String localite, @RequestParam String rue, @RequestParam String num,
-        Map<String, Object> model) {
-        System.out.println("Creating address");
-        Adresse address = new Adresse(cp, localite,rue, num);
-        try{
-            adresseRepository.save(address);
-            Collection<Adresse> colAddres = adresseRepository.findAll();
-            model.put("colAddres", colAddres);
-        }catch (Exception e){
-            System.out.println("Error while creating a new address");
-            model.put("Error" , e.getMessage());
-        }
-
-        return "TODO";
     }
 
 }

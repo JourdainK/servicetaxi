@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Location by ID</title>
+</head>
+<body>
+<br>
+<ul>
+    <li><a href="/">Home page</a></li>
+    <li><a href="service/clients">See all Clients</a></li>
+    <li><a href="address/allAddresses">all Addresses</a></li>
+    <li><a href="taxi/taxiServices">Taxi Services</a></li>
+    <li><a href="locationServices">Location Services</a></li>
+</ul>
+<br><br>
+<table border="1">
+    <th>ID</th>
+    <th>Date</th>
+    <th>Kilometers</th>
+    <th>Passengers</th>
+    <th>Total</th>
+    <th>Taxi registration</th>
+    <th>Departure town</th>
+    <th>Departure street</th>
+    <th>Arrival Town</th>
+    <th>Arrival street</th>
+    <tr>
+        <td th:text="${myLocation.idlocation}"/>
+        <td th:text="${myLocation.dateloc}"/>
+        <td th:text="${myLocation.kmtotal}"/>
+        <td th:text="${myLocation.nbrpassagers}"/>
+        <td> <span th:text="${myLocation.total}"></span> &euro;</td>
+        <td th:text="${myLocation.taxi.immatriculation}"/>
+        <td th:text="${myLocation.adressedep.getLocalite()}"/>
+        <td th:text="${myLocation.adressedep.rue}"/>
+        <td th:text="${myLocation.adressearr.localite}"/>
+        <td th:text="${myLocation.adressearr.rue}"/>
+    </tr>
+</table>
+<br>
+</body>
+</html>

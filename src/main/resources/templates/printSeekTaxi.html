@@ -13,12 +13,20 @@
         <th>Registration</th>
         <th>Passengers max</th>
         <th>Price per km</th>
-        <tr th:each="ataxi : ${myTaxi}">
+        <tr>
             <td th:text="${myTaxi.idtaxi}"/>
             <td th:text="${myTaxi.immatriculation}"/>
             <td th:text="${myTaxi.nbremaxpassagers}"/>
             <td th:text="${myTaxi.prixkm}"/>
         </tr>
     </table>
+
+    <br><br>
+    <ul>
+        <li><a href="/">Home page</a></li>
+        <li><a href="service/clients">See all Clients</a></li>
+        <li><a href="service/allAddresses">See all Addresses</a></li>
+        <li><a href="taxi/taxiServices">Taxi Services</a></li>
+    </ul>
 </body>
 </html>

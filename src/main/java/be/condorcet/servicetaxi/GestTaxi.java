@@ -22,9 +22,9 @@ public class GestTaxi {
         return "taxiServices";
     }
 
-    //pathway only respond to taxi/taxi/service... i don't understand why so
-    //added taxi/
-    @RequestMapping("taxi/seekbyid")
+
+    //fixed the path
+    @RequestMapping("/seekbyid")
     public String read(@RequestParam int idtaxi, Map<String, Object> model){
         System.out.println("Seeking taxi by id  : " + idtaxi);
         try{
@@ -39,7 +39,7 @@ public class GestTaxi {
         return "printSeekTaxi";
     }
 
-    @RequestMapping("taxi/createTaxi")
+    @RequestMapping("/createTaxi")
     public String create(@RequestParam String immatriculation, @RequestParam int nbremaxpassagers,
                          @RequestParam BigDecimal prixkm, Map<String, Object> model){
         Taxi taxi = new Taxi(immatriculation, nbremaxpassagers, prixkm);
