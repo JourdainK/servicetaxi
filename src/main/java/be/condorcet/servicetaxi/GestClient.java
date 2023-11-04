@@ -25,7 +25,7 @@ public class GestClient {
         List<Client> list;
         try{
             list = clientRepository.findAll();
-
+            list.sort((o1, o2) -> o1.getIdclient() - o2.getIdclient());
             model.put("myClients",list);
         }catch (Exception e){
             System.out.println("--------------Erreur lors de la recherche --------------------\n" + e);
@@ -107,6 +107,22 @@ public class GestClient {
         }
 
         return "Client/cliByName";
+    }
+
+    @RequestMapping("/deleteClient")
+    String delete(@RequestParam("idclient") int idclient, Map<String, Object> model) {
+        try {
+            clientRepository.deleteById(idclient);
+            List<Client> listClient = clientRepository.findAll();
+            listClient.sort((o1, o2) -> o1.getIdclient() - o2.getIdclient());
+            model.put("myClients", listClient);
+        } catch (Exception e) {
+            System.out.println("Error while deleting client: " + e);
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Client/deleteClient";
     }
 
 }

@@ -27,6 +27,7 @@ public class LocationServiceImpl implements InterfLocationService{
     public List<Location> getLocationsByClient(Client client) {
         //get list of location by client, with findAll and a filter
         List<Location> llocs = locationRepository.findLocationByClient(client);
+        llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
         return llocs;
     }
 

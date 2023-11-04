@@ -10,6 +10,7 @@ import be.condorcet.servicetaxi.model.Client;
 import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,19 +72,26 @@ public class GestLocation {
     @RequestMapping("/createLocation")
     public String create(@RequestParam Date dateloc, @RequestParam Integer kmtotal, @RequestParam Integer nbrepassagers,
                          @RequestParam int idtaxi, @RequestParam int idclient,@RequestParam int id_adresse, @RequestParam int id_adresse_1 ,Map<String, Object> model){
+
         try {
             Taxi taxi = taxiServiceImpl.read(idtaxi);
             Client client = clientServiceImpl.read(idclient);
             Adresse adressedep = adresseServiceImpl.read(id_adresse);
             Adresse adressearr = adresseServiceImpl.read(id_adresse_1);
             Location location = new Location(dateloc, kmtotal, nbrepassagers, taxi, client, adressedep, adressearr);
+            locationServiceImpl.create(location);
+            //update the location to get the price in, automatically inserted by the database (Trigger)
+            //spring doesn't like the trigger so i created a method in the model to calculate the price
+            Location updatedLocation = locationServiceImpl.read(location.getIdlocation());
+            System.out.println("updated loc = " + updatedLocation);
+            model.put("newlocation", updatedLocation);
         } catch (Exception e) {
             System.out.println("Error while seeking element for the Location : " + e);
             model.put("error", e.getMessage());
             return "error";
         }
+        System.out.println("returning to the new location page");
 
-        //TODO create page form and replace name under
-        return null;
+        return "Location/newLocation";
     }
 }

@@ -13,22 +13,35 @@
     <li><a href="../service/clients">See all Clients</a></li>
     <li><a href="../address/allAddresses">all Addresses</a></li>
     <li><a href="taxiServices">Taxi Services</a></li>
+    <li><a href="allTaxis">See All taxis</a></li>
     <li><a href="../location/locationServices">Location Services</a></li>
 </ul>
-<br>
 
+<br><br>
+<table border="1">
+    <th>ID</th>
+    <th>Registration</th>
+    <th>Passengers max</th>
+    <th>Price per km</th>
+    <tr th:each="myTaxi : ${myTaxis}">
+        <td th:text="${myTaxi.idtaxi}"/>
+        <td th:text="${myTaxi.immatriculation}"/>
+        <td th:text="${myTaxi.nbremaxpassagers}"/>
+        <td th:text="${myTaxi.prixkm}"/>
+    </tr>
+</table>
 
 <br><br>
 <h3>select a Taxi by ID</h3>
 <form action="seekbyid" method="get">
   Enter an ID : <input type="number" name="idtaxi">
-  <input type="submit" name="submit2">
+  <input type="submit" name="submit2" value="Search">
 </form>
 
 <br><br>
 
 <h3>Create a new Taxi</h3>
-<form action ="createTaxi" method="get">
+<form action="createTaxi" method="get">
     <p>Taxi's registration must be in one of those two form : <br> "T-XAA-000" or "T-LAA-000"</p>
     Registration : <input type="text" name="immatriculation" pattern="^T\-L[A-Z]{2}\-[0-9]{3}$|^T\-X[A-Z]{2}\-[0-9]{3}$"> <br>
     Passengers max : <input type="number" name="nbremaxpassagers" step="1"> <br>
@@ -37,6 +50,18 @@
     <input type="submit" name="submitCreate" value="Create a taxi">
 </form>
 
+<br><br>
+
+<h3>Update a Taxi</h3>
+<form action="updateTaxi" method="get">
+    <p>Taxi's registration must be in one of those two form : <br> "T-XAA-000" or "T-LAA-000"</p>
+    ID : <input type="number" name="idtaxi" step="1"> <br>
+    Registration : <input type="text" name="immatriculation" pattern="^T\-L[A-Z]{2}\-[0-9]{3}$|^T\-X[A-Z]{2}\-[0-9]{3}$"> <br>
+    Passengers max : <input type="number" name="nbremaxpassagers" step="1"> <br>
+    Price per km : <input type="number" name="prixkm" step="0.01"> <br>
+
+    <input type="submit" name="submitUpdate" value="Update a taxi">
+</form>
 
 <br><br>
 </body>

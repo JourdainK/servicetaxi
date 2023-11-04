@@ -40,4 +40,12 @@ public class Location {
     @OneToOne @JoinColumn(name = "id_adresse_1")
     private Adresse adressearr;
 
+    //had a lot of troubles with the trigger in the database that calculate the price
+    //calculate the total in the model
+    //I know it's not the best practice, but it works
+    public BigDecimal calcTotal(){
+        BigDecimal tot = this.taxi.getPrixkm().multiply(BigDecimal.valueOf(this.kmtotal));
+        return tot;
+    }
+
 }

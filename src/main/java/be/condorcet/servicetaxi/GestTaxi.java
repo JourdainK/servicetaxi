@@ -18,6 +18,16 @@ public class GestTaxi {
 
     @RequestMapping("/taxiServices")
     public String taxiServices(Map<String, Object> model){
+        try{
+            List<Taxi> ltaxis = taxiServiceImpl.all();
+            ltaxis.sort((o1, o2) -> o1.getIdtaxi() - o2.getIdtaxi());
+            model.put("myTaxis",ltaxis);
+        }catch (Exception e){
+            System.out.println("Error while seeking all taxis : " + e.getMessage());
+            model.put("error",e.getMessage());
+            return "error";
+        }
+
         return "Taxis/taxiServices";
     }
 
@@ -52,6 +62,43 @@ public class GestTaxi {
             return "error";
         }
 
+        return "Taxis/newTaxi";
+    }
+
+    @RequestMapping("/allTaxis")
+    public String all(Map<String, Object> model){
+        //System.out.println("Seeking all taxis");
+        List<Taxi> ltaxis;
+        try{
+            ltaxis = taxiServiceImpl.all();
+            ltaxis.sort((o1, o2) -> o1.getIdtaxi() - o2.getIdtaxi());
+            model.put("myTaxis",ltaxis);
+        }catch (Exception e){
+            System.out.println("Error while seeking all taxis : " + e.getMessage());
+            model.put("error",e.getMessage());
+            return "error";
+        }
+
+        return "Taxis/printAllTaxis";
+    }
+
+    @RequestMapping("/updateTaxi")
+    public String update(@RequestParam int idtaxi, @RequestParam String immatriculation, @RequestParam int nbremaxpassagers,
+                         @RequestParam BigDecimal prixkm, Map<String, Object> model){
+        //System.out.println("Updating a taxi : " + taxi) ;
+        try{
+            Taxi taxi = taxiServiceImpl.read(idtaxi);
+            taxi.setImmatriculation(immatriculation);
+            taxi.setNbremaxpassagers(nbremaxpassagers);
+            taxi.setPrixkm(prixkm);
+            taxiServiceImpl.update(taxi);
+            model.put("newtaxi",taxi);
+        }catch (Exception e){
+            System.out.println("Error while updating the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+        //reuse the same page of select or read by ID
         return "Taxis/newTaxi";
     }
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Location</title>
+</head>
+<body>
+<br>
+<ul>
+    <li><a href="../">Home page</a></li>
+    <li><a href="/location/locationServices">Location Services</a></li>
+</ul>
+
+<br><br>
+
+<h3>new location created</h3>
+<table border="1">
+    <th>ID</th>
+    <th>Date</th>
+    <th>Kilometers</th>
+    <th>Passengers</th>
+    <th>Total</th>
+    <th>Taxi registration</th>
+    <th>Departure town</th>
+    <th>Departure street</th>
+    <th>Arrival Town</th>
+    <th>Arrival street</th>
+    <tr>
+        <td th:text="${newlocation.idlocation}"/>
+        <td th:text="${newlocation.dateloc}"/>
+        <td th:text="${newlocation.kmtotal}"/>
+        <td th:text="${newlocation.nbrpassagers}"/>
+        <td> <span th:text="${newlocation.calcTotal()}"></span> &euro;</td>
+        <td th:text="${newlocation.taxi.immatriculation}"/>
+        <td th:text="${newlocation.adressedep.getLocalite()}"/>
+        <td th:text="${newlocation.adressedep.rue}"/>
+        <td th:text="${newlocation.adressearr.localite}"/>
+        <td th:text="${newlocation.adressearr.rue}"/>
+    </tr>
+</table>
+
+</body>
+</html>

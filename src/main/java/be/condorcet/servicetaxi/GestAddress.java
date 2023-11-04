@@ -25,6 +25,7 @@ public class GestAddress {
         List<Adresse> la;
         try{
             la = adresseRepository.findAll();
+            la.sort((o1, o2) -> o1.getIdadresse() - o2.getIdadresse());
             model.put("myAddresses",la);
         }catch (Exception e){
             System.out.println("Error while looking for addresses : " + e.getMessage());
