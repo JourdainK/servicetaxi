@@ -1,6 +1,5 @@
 package be.condorcet.servicetaxi;
 
-import be.condorcet.servicetaxi.Repositories.TaxiRepository;
 import be.condorcet.servicetaxi.Services.InterfTaxiService;
 import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,14 @@ public class GestTaxi {
 
     @RequestMapping("/taxiServices")
     public String taxiServices(Map<String, Object> model){
-        return "taxiServices";
+        return "Taxis/taxiServices";
     }
 
 
     //fixed the path
     @RequestMapping("/seekbyid")
     public String read(@RequestParam int idtaxi, Map<String, Object> model){
-        System.out.println("Seeking taxi by id  : " + idtaxi);
+        //System.out.println("Seeking taxi by id  : " + idtaxi);
         try{
             Taxi taxi = taxiServiceImpl.read(idtaxi);
             System.out.println(taxi);
@@ -36,14 +35,14 @@ public class GestTaxi {
             model.put("error",e.getMessage());
             return "error";
         }
-        return "printSeekTaxi";
+        return "Taxis/printSeekTaxi";
     }
 
     @RequestMapping("/createTaxi")
     public String create(@RequestParam String immatriculation, @RequestParam int nbremaxpassagers,
                          @RequestParam BigDecimal prixkm, Map<String, Object> model){
         Taxi taxi = new Taxi(immatriculation, nbremaxpassagers, prixkm);
-        System.out.println("Creating a taxi : " + taxi) ;
+        //System.out.println("Creating a taxi : " + taxi) ;
         try{
             taxiServiceImpl.create(taxi);
             model.put("newtaxi",taxi);
@@ -53,7 +52,7 @@ public class GestTaxi {
             return "error";
         }
 
-        return "newTaxi";
+        return "Taxis/newTaxi";
     }
 
 }

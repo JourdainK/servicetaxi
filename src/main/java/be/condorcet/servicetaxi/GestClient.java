@@ -1,9 +1,7 @@
 package be.condorcet.servicetaxi;
 
 
-import be.condorcet.servicetaxi.Repositories.AdresseRepository;
 import be.condorcet.servicetaxi.Repositories.ClientRepository;
-import be.condorcet.servicetaxi.model.Adresse;
 import be.condorcet.servicetaxi.model.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +31,7 @@ public class GestClient {
             System.out.println("--------------Erreur lors de la recherche --------------------\n" + e);
             return "error";
         }
-        return "printAllClients";
+        return "Client/printAllClients";
     }
 
     //create a new client
@@ -53,7 +51,7 @@ public class GestClient {
             model.put("error",e.getMessage());
             return "error";
         }
-        return "newClient";
+        return "Client/newClient";
     }
 
     //select a client (look by id)
@@ -80,7 +78,7 @@ public class GestClient {
             model.put("error", e);
             return "error";
         }
-        return "printClient";
+        return "Client/printClient";
     }
 
     //Couldn't use the Optional<Collection<client>> correctly -> got help from ChatGPT
@@ -108,7 +106,7 @@ public class GestClient {
             return "error";
         }
 
-        return "cliByName";
+        return "Client/cliByName";
     }
 
 }

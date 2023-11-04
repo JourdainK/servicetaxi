@@ -27,12 +27,17 @@ public class Location {
     private Integer nbrpassagers;
     //total will be calculated by a trigger in the database (INSERT_PRIXTOT_TRIGGER)
     private BigDecimal total;
+    @NonNull
     @ManyToOne @JoinColumn(name = "id_taxi")
     private Taxi taxi;
+    @NonNull
     @ManyToOne @JoinColumn(name = "id_client")
     private Client client;
+    @NonNull
     @OneToOne @JoinColumn(name = "id_adresse")
     private Adresse adressedep;
+    @NonNull
     @OneToOne @JoinColumn(name = "id_adresse_1")
     private Adresse adressearr;
+
 }

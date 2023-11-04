@@ -31,7 +31,7 @@ public class GestAddress {
             return "error";
         }
 
-        return "printAllAddresses";
+        return "Address/printAllAddresses";
     }
 
     @RequestMapping("createAddress")

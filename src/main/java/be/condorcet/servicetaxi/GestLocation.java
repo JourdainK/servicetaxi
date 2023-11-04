@@ -1,8 +1,14 @@
 package be.condorcet.servicetaxi;
 
 
+import be.condorcet.servicetaxi.Services.InterfAdresseService;
+import be.condorcet.servicetaxi.Services.InterfClientService;
 import be.condorcet.servicetaxi.Services.InterfLocationService;
+import be.condorcet.servicetaxi.Services.InterfTaxiService;
+import be.condorcet.servicetaxi.model.Adresse;
+import be.condorcet.servicetaxi.model.Client;
 import be.condorcet.servicetaxi.model.Location;
+import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +24,16 @@ public class GestLocation {
 
     @Autowired
     private InterfLocationService locationServiceImpl;
+    @Autowired
+    private InterfClientService clientServiceImpl;
+    @Autowired
+    private InterfTaxiService taxiServiceImpl;
+    @Autowired
+    private InterfAdresseService adresseServiceImpl;
 
     @RequestMapping("/locationServices")
     public String locationServices(Map<String, Object> model){
-        return "locationServices";
+        return "Location/locationServices";
     }
 
     @RequestMapping("/allLocations")
@@ -38,7 +50,7 @@ public class GestLocation {
             return "error";
         }
 
-        return "allLocations";
+        return "Location/allLocations";
     }
 
     @RequestMapping("/seekLocbyid")
@@ -53,13 +65,25 @@ public class GestLocation {
             model.put("error",e.getMessage());
             return "error";
         }
-        return "printSeekLocation";
+        return "Location/printSeekLocation";
     }
 
     @RequestMapping("/createLocation")
-    public String create(@RequestParam Date dateloc) {
-        //TODO pick up here
+    public String create(@RequestParam Date dateloc, @RequestParam Integer kmtotal, @RequestParam Integer nbrepassagers,
+                         @RequestParam int idtaxi, @RequestParam int idclient,@RequestParam int id_adresse, @RequestParam int id_adresse_1 ,Map<String, Object> model){
+        try {
+            Taxi taxi = taxiServiceImpl.read(idtaxi);
+            Client client = clientServiceImpl.read(idclient);
+            Adresse adressedep = adresseServiceImpl.read(id_adresse);
+            Adresse adressearr = adresseServiceImpl.read(id_adresse_1);
+            Location location = new Location(dateloc, kmtotal, nbrepassagers, taxi, client, adressedep, adressearr);
+        } catch (Exception e) {
+            System.out.println("Error while seeking element for the Location : " + e);
+            model.put("error", e.getMessage());
+            return "error";
+        }
 
+        //TODO create page form and replace name under
         return null;
     }
 }
