@@ -10,7 +10,6 @@ import be.condorcet.servicetaxi.model.Client;
 import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +38,7 @@ public class GestLocation {
 
     @RequestMapping("/allLocations")
     public String allLocations(Map<String, Object> model){
-        System.out.println("Seeking all locations");
+        //System.out.println("Seeking all locations");
         List<Location> llocs;
         try{
             llocs = locationServiceImpl.all();
@@ -59,7 +58,7 @@ public class GestLocation {
         System.out.println("Seeking location by id  : " + idlocation);
         try{
             Location location = locationServiceImpl.read(idlocation);
-            System.out.println(location);
+            //System.out.println(location);
             model.put("myLocation",location);
         }catch (Exception e){
             System.out.println("--------- Error while seeking the location -----------\n"  + e);
@@ -83,15 +82,104 @@ public class GestLocation {
             //update the location to get the price in, automatically inserted by the database (Trigger)
             //spring doesn't like the trigger so i created a method in the model to calculate the price
             Location updatedLocation = locationServiceImpl.read(location.getIdlocation());
-            System.out.println("updated loc = " + updatedLocation);
             model.put("newlocation", updatedLocation);
         } catch (Exception e) {
             System.out.println("Error while seeking element for the Location : " + e);
             model.put("error", e.getMessage());
             return "error";
         }
-        System.out.println("returning to the new location page");
 
         return "Location/newLocation";
+    }
+
+    @RequestMapping("/deleteLocation")
+    public String delete(@RequestParam int idlocation, Map<String, Object> model){
+        //System.out.println("Deleting location : " + idlocation);
+        try{
+            Location location = locationServiceImpl.read(idlocation);
+            locationServiceImpl.delete(location);
+            List<Location> llocs = locationServiceImpl.all();
+            model.put("deletedloc",location);
+            model.put("myLocations",llocs);
+        }catch (Exception e){
+            System.out.println("Error while deleting the location : " + e);
+            model.put("error", e.getMessage());
+            return "error";
+        }
+        return "Location/deletedLocation";
+    }
+
+    @RequestMapping("/updateLocation")
+    public String update(@RequestParam int idlocation, @RequestParam Date dateloc, @RequestParam Integer kmtotal, @RequestParam Integer nbrepassagers,
+                         @RequestParam int idtaxi, @RequestParam int idclient,@RequestParam int id_adresse, @RequestParam int id_adresse_1 ,Map<String, Object> model){
+        try{
+            Location location = locationServiceImpl.read(idlocation);
+            location.setDateloc(dateloc);
+            location.setKmtotal(kmtotal);
+            location.setNbrpassagers(nbrepassagers);
+            location.setClient(clientServiceImpl.read(idclient));
+            location.setTaxi(taxiServiceImpl.read(idtaxi));
+            location.setAdressedep(adresseServiceImpl.read(id_adresse));
+            location.setAdressearr(adresseServiceImpl.read(id_adresse_1));
+            locationServiceImpl.update(location);
+            model.put("updatedLoc",location);
+        }catch (Exception e){
+            System.out.println("Error while updating the location : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+        return "Location/updateLocation";
+    }
+
+    @RequestMapping("/getLocationsByClient")
+    public String getLocationsByClient(@RequestParam int idclient, Map<String, Object> model){
+        //System.out.println("Deleting a taxi : " + taxi) ;
+        try{
+            Client client = clientServiceImpl.read(idclient);
+            List<Location> llocs = locationServiceImpl.getLocationsByClient(client);
+            llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
+            model.put("myClient",client);
+            model.put("myLocations",llocs);
+        }catch (Exception e){
+            System.out.println("Error while deleting the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Location/getLocationsByClient";
+    }
+
+    @RequestMapping("/getLocationsByTaxi")
+    public String getLocationsByTaxi(@RequestParam int idtaxi, Map<String, Object> model){
+
+        try{
+            Taxi taxi = taxiServiceImpl.read(idtaxi);
+            List<Location> llocs = locationServiceImpl.getLocationsByTaxi(taxi);
+            llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
+            model.put("myTaxi",taxi);
+            model.put("myLocations",llocs);
+        }catch (Exception e){
+            System.out.println("Error while deleting the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Location/getLocationsByTaxi";
+    }
+
+    @RequestMapping("/getLocationsByDate")
+    public String getLocationsByDate(@RequestParam Date dateloc, Map<String, Object> model){
+        try{
+            List<Location> llocs = locationServiceImpl.getLocationsByDate(dateloc);
+            llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
+            model.put("myDate",dateloc);
+            model.put("myLocations",llocs);
+        }catch (Exception e){
+            System.out.println("Error while deleting the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Location/getLocationsByDate";
     }
 }

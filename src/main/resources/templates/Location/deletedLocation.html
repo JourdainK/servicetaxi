@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deleted Location</title>
+</head>
+<body>
+    <br>
+    <ul>
+        <li><a href="../">Home page</a></li>
+        <li><a href="/location/locationServices">Location Service</a></li>
+    </ul>
+    <br><br>
+    <table border="1">
+        <th>ID</th>
+        <th>Date</th>
+        <th>Kilometers</th>
+        <th>Passengers</th>
+        <th>Total</th>
+        <th>Taxi registration</th>
+        <th>Departure town</th>
+        <th>Departure street</th>
+        <th>Arrival Town</th>
+        <th>Arrival street</th>
+        <tr>
+            <td th:text="${deletedloc.idlocation}"/>
+            <td th:text="${deletedloc.dateloc}"/>
+            <td th:text="${deletedloc.kmtotal}"/>
+            <td th:text="${deletedloc.nbrpassagers}"/>
+            <td> <span th:text="${deletedloc.total}"></span> &euro;</td>
+            <td th:text="${deletedloc.taxi.immatriculation}"/>
+            <td th:text="${deletedloc.adressedep.getLocalite()}"/>
+            <td th:text="${deletedloc.adressedep.rue}"/>
+            <td th:text="${deletedloc.adressearr.localite}"/>
+            <td th:text="${deletedloc.adressearr.rue}"/>
+        </tr>
+    </table>
+
+
+</body>
+</html>

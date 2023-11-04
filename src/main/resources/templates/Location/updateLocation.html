@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Updated Location</title>
+</head>
+<body>
+<h3>Updated Location</h3>
+<br><br>
+<table border="1">
+    <th>ID</th>
+    <th>Date</th>
+    <th>Kilometers</th>
+    <th>Passengers</th>
+    <th>Total</th>
+    <th>Taxi registration</th>
+    <th>Departure town</th>
+    <th>Departure street</th>
+    <th>Arrival Town</th>
+    <th>Arrival street</th>
+    <tr>
+        <td th:text="${updatedLoc.idlocation}"/>
+        <td th:text="${updatedLoc.dateloc}"/>
+        <td th:text="${updatedLoc.kmtotal}"/>
+        <td th:text="${updatedLoc.nbrpassagers}"/>
+        <td> <span th:text="${updatedLoc.calcTotal()}"></span> &euro;</td>
+        <td th:text="${updatedLoc.taxi.immatriculation}"/>
+        <td th:text="${updatedLoc.adressedep.getLocalite()}"/>
+        <td th:text="${updatedLoc.adressedep.rue}"/>
+        <td th:text="${updatedLoc.adressearr.localite}"/>
+        <td th:text="${updatedLoc.adressearr.rue}"/>
+    </tr>
+</table>
+<br><br>
+
+<ul>
+    <li><a href="../">Home page</a></li>
+    <li><a href="../service/clients">See all Clients</a></li>
+    <li><a href="../address/allAddresses">See all Addresses</a></li>
+    <li><a href="../taxi/taxiServices">Taxi Services</a></li>
+    <li><a href="locationServices">Location Services</a></li>
+</ul>
+
+</body>
+</html>

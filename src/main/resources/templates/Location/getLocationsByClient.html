@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All the locations</title>
+    <title>Locations by client</title>
 </head>
 <body>
+<h3>The client</h3>
+<table border="1">
+    <th>ID</th>
+    <th>Mail</th>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Phone number</th>
+    <tr>
+        <td th:text="${myClient.idclient}"/>
+        <td th:text="${myClient.mail}"/>
+        <td th:text="${myClient.nomcli}"/>
+        <td th:text="${myClient.prenomcli}"/>
+        <td th:text="${myClient.tel}"/>
+    </tr>
+</table>
+
+<br>
+<h3>The location of the client N°<span th:text="${myClient.idclient}"></span> &nbsp; : &nbsp; <span th:text="${myClient.nomcli}"></span> &nbsp; <span th:text="${myClient.mail}"></span></h3>
+<br>
 <table border="1">
     <th>Id location</th>
     <th>Date</th>
@@ -28,8 +47,6 @@
         <td th:text="${loc.adressedep.getLocalite()}"/>
         <td th:text="${loc.adressedep.getRue()}"/>
     </tr>
-
-    <br>
 </table>
 
 <br><br>
@@ -40,8 +57,6 @@
     <li><a href="../taxi/taxiServices">Taxi Services</a></li>
     <li><a href="locationServices">Location Services</a></li>
 </ul>
-
-<br><br>
 
 </body>
 </html>

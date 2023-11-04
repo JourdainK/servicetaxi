@@ -40,6 +40,54 @@
     <input type="submit" name="createLocation" value="Create Location">
 </form>
 
+<br><br>
 
+<h3>Delete a location</h3>
+<form action="deleteLocation" method="get">
+    Enter an ID : <input type="number" name="idlocation">
+    <input type="submit" name="submitLocId" value="Delete">
+</form>
+
+<br><br>
+
+<h3>Update a location</h3>
+<form action="updateLocation" method="get">
+    Enter an ID : <input type="number" name="idlocation"> <br>
+    Enter the location's Date : <input type="date" name="dateloc"> <br>
+    Enter the number of kilometers : <input type="number" name="kmtotal"> <br>
+    Enter the number of passengers : <input type="number" name="nbrepassagers"> <br>
+    Enter the Taxi's ID : <input type="number" name="idtaxi"> <br>
+    Enter the Client's ID : <input type="number" name="idclient"> <br>
+    Enter the departure address ID : <input type="number" name="id_adresse"> <br>
+    Enter the arrival address ID : <input type="number" name="id_adresse_1"> <br>
+    <input type="submit" name="updateLocation" value="Update Location">
+</form>
+
+<br><br>
+
+<h3>Get all the locations of a client</h3>
+<br>
+<form action="getLocationsByClient" method="get">
+    Enter the client's ID : <input type="number" name="idclient">
+    <input type="submit" name="submitLocId" value="Search">
+</form>
+<br><br>
+
+<h3>Get all the locations of a taxi </h3>
+<br>
+<form action="getLocationsByTaxi" method="get">
+    Enter the taxi's ID : <input type="number" name="idtaxi">
+    <input type="submit" name="submitLocId" value="Search">
+</form>
+
+<br><br>
+
+<h3>Get all the locations of a specific date</h3>
+<br>
+<form action="getLocationsByDate" method="get">
+    Enter a date : <input type="date" name="dateloc">
+    <input type="submit" name="submitLocId" value="Search">
+</form>
+<br><br>
 </body>
 </html>

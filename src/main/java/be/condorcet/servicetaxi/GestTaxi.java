@@ -1,6 +1,7 @@
 package be.condorcet.servicetaxi;
 
 import be.condorcet.servicetaxi.Services.InterfTaxiService;
+import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -100,6 +101,42 @@ public class GestTaxi {
         }
         //reuse the same page of select or read by ID
         return "Taxis/newTaxi";
+    }
+
+    @RequestMapping("/deleteTaxi")
+    public String delete(@RequestParam int idtaxi, Map<String, Object> model){
+        //System.out.println("Deleting a taxi : " + taxi) ;
+        try{
+            Taxi taxi = taxiServiceImpl.read(idtaxi);
+            taxiServiceImpl.delete(taxi);
+            List<Taxi> ltaxis = taxiServiceImpl.all();
+            model.put("deletedtaxi",taxi);
+            model.put("myTaxis",ltaxis);
+        }catch (Exception e){
+            System.out.println("Error while deleting the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Taxis/deleteTaxi";
+    }
+
+    @RequestMapping("/getLocationsByTaxi")
+    public String getLocationsByTaxi(@RequestParam int idtaxi, Map<String, Object> model){
+        //System.out.println("Deleting a taxi : " + taxi) ;
+        try{
+            Taxi taxi = taxiServiceImpl.read(idtaxi);
+            List<Location> llocs = taxiServiceImpl.getLocationsByTaxi(taxi);
+            llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
+            model.put("myTaxi",taxi);
+            model.put("myLocations",llocs);
+        }catch (Exception e){
+            System.out.println("Error while deleting the taxi : " + e );
+            model.put("error", e.getMessage());
+            return "error";
+        }
+
+        return "Taxis/getLocationsByTaxi";
     }
 
 }

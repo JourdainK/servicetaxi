@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deleted Taxi</title>
+</head>
+<body>
+<br><br>
+<h3>Deleted Taxi</h3>
+<table border="1">
+    <th>ID</th>
+    <th>Registration</th>
+    <th>Passengers max</th>
+    <th>Price per km</th>
+    <tr>
+        <td th:text="${deletedtaxi.idtaxi}"/>
+        <td th:text="${deletedtaxi.immatriculation}"/>
+        <td th:text="${deletedtaxi.nbremaxpassagers}"/>
+        <td th:text="${deletedtaxi.prixkm}"/>
+    </tr>
+</table>
+
+
+    <ul>
+        <li><a href="../">Home page</a></li>
+        <li><a href="../service/clients">See all Clients</a></li>
+        <li><a href="../address/allAddresses">See all Addresses</a></li>
+        <li><a href="../taxi/taxiServices">Taxi Services</a></li>
+    </ul>
+
+
+</body>
+</html>

@@ -64,5 +64,29 @@
 </form>
 
 <br><br>
+
+<h3>Delete a Taxi</h3>
+<form action="deleteTaxi" method="get">
+    Enter an ID : <input type="number" name="idtaxi">
+    <input type="submit" name="submitDelete" value="Delete a taxi">
+</form>
+
+<br><br>
+
+<h3>See all the locations of a taxi</h3>
+<form action="getLocationsByTaxi" method="get">
+    Enter an ID : <input type="number" name="idtaxi">
+    <input type="submit" name="submitLocations" value="See all locations">
+</form>
+
+<br><br>
+
+<ul>
+    <li><a href="../">Home page</a></li>
+    <li><a href="../service/clients">See all Clients</a></li>
+    <li><a href="../address/allAddresses">See all Addresses</a></li>
+    <li><a href="../taxi/taxiServices">Taxi Services</a></li>
+</ul>
+
 </body>
 </html>

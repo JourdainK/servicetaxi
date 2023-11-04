@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Taxi's Location</title>
+</head>
+<body>
+    <br>
+    <h3>The chosen taxi </h3>
+    <table border="1">
+        <th>ID</th>
+        <th>Registration</th>
+        <th>Passengers max</th>
+        <th>Price per km</th>
+        <tr>
+            <td th:text="${myTaxi.idtaxi}"/>
+            <td th:text="${myTaxi.immatriculation}"/>
+            <td th:text="${myTaxi.nbremaxpassagers}"/>
+            <td th:text="${myTaxi.prixkm}"/>
+        </tr>
+    </table>
+
+    <br><br>
+    <h3>The locations of the chosen taxi n° <span th:text="${myTaxi.idtaxi}"></span> : <span th:text="${myTaxi.immatriculation}"></span></h3>
+    <br>
+    <table border="1">
+        <th>Id location</th>
+        <th>Date</th>
+        <th>Kilometers</th>
+        <th>Passengers</th>
+        <th>Total</th>
+        <th>Taxi registration</th>
+        <th>Departure town</th>
+        <th>Departure street</th>
+        <th>Arrival Town</th>
+        <th>Arrival street</th>
+        <tr th:each="loc : ${myLocations}">
+            <td th:text="${loc.idlocation}"/>
+            <td th:text="${loc.dateloc}"/>
+            <td th:text="${loc.kmtotal}"/>
+            <td th:text="${loc.nbrpassagers}"/>
+            <td> <span th:text="${loc.total}"></span> &euro;</td>
+            <td th:text="${loc.taxi.immatriculation}"/>
+            <td th:text="${loc.adressearr.getLocalite()}"/>
+            <td th:text="${loc.adressearr.getRue()}"/>
+            <td th:text="${loc.adressedep.getLocalite()}"/>
+            <td th:text="${loc.adressedep.getRue()}"/>
+        </tr>
+
+        <br>
+    </table>
+
+<br><br>
+
+
+
+
+
+</body>
+</html>
