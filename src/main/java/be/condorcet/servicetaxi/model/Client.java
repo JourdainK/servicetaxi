@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.Objects;
 
 // underscore was causing trouble in the variable from the SQL table, got help from Arthur Lorfevre And Daniele Nicolo
 //https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
@@ -38,4 +39,16 @@ public class Client {
     @ToString.Exclude
     private List<Location> llocations;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(idclient, client.idclient) && Objects.equals(mail, client.mail) && Objects.equals(nomcli, client.nomcli) && Objects.equals(prenomcli, client.prenomcli);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idclient, mail, nomcli, prenomcli);
+    }
 }

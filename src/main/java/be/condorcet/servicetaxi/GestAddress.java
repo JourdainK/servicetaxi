@@ -2,6 +2,7 @@ package be.condorcet.servicetaxi;
 
 
 import be.condorcet.servicetaxi.Repositories.AdresseRepository;
+import be.condorcet.servicetaxi.Services.AdresseServiceImpl;
 import be.condorcet.servicetaxi.model.Adresse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +16,15 @@ import java.util.Map;
 @Controller
 @RequestMapping("/address")
 public class GestAddress {
-
     @Autowired
-    AdresseRepository adresseRepository;
+    AdresseServiceImpl adresseServiceImpl;
 
     @RequestMapping("/allAddresses")
     String printAllAddresses(Map<String, Object> model){
         System.out.println("seeking addresses to print");
         List<Adresse> la;
         try{
-            la = adresseRepository.findAll();
+            la = adresseServiceImpl.all();
             la.sort((o1, o2) -> o1.getIdadresse() - o2.getIdadresse());
             model.put("myAddresses",la);
         }catch (Exception e){
@@ -41,14 +41,15 @@ public class GestAddress {
         System.out.println("Creating address");
         Adresse address = new Adresse(cp, localite,rue, num);
         try{
-            adresseRepository.save(address);
-            Collection<Adresse> colAddres = adresseRepository.findAll();
+            adresseServiceImpl.create(address);
+            Collection<Adresse> colAddres = adresseServiceImpl.all();
             model.put("colAddres", colAddres);
         }catch (Exception e){
             System.out.println("Error while creating a new address");
             model.put("Error" , e.getMessage());
         }
 
+        //TODO
         return "TODO";
     }
 

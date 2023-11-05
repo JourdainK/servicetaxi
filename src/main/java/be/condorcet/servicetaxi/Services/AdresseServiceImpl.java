@@ -14,8 +14,7 @@ import java.util.List;
 public class AdresseServiceImpl implements InterfAdresseService{
     @Autowired
     private AdresseRepository adresseRepository;
-    @Autowired
-    private LocationServiceImpl locationService;
+
 
     @Override
     public Adresse create(Adresse adresse) throws Exception {

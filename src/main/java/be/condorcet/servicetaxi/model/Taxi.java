@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -33,4 +34,16 @@ public class Taxi {
     @ToString.Exclude
     private List<Location> llocs;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Taxi taxi = (Taxi) o;
+        return Objects.equals(idtaxi, taxi.idtaxi) && Objects.equals(immatriculation, taxi.immatriculation) && Objects.equals(nbremaxpassagers, taxi.nbremaxpassagers) && Objects.equals(prixkm, taxi.prixkm);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idtaxi, immatriculation, nbremaxpassagers, prixkm);
+    }
 }

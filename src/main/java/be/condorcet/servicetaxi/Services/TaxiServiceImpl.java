@@ -3,6 +3,7 @@ package be.condorcet.servicetaxi.Services;
 
 import be.condorcet.servicetaxi.Repositories.LocationRepository;
 import be.condorcet.servicetaxi.Repositories.TaxiRepository;
+import be.condorcet.servicetaxi.model.Client;
 import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
 import jakarta.transaction.Transactional;

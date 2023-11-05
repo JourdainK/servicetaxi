@@ -18,14 +18,9 @@ import java.util.List;
 public class LocationServiceImpl implements InterfLocationService{
     @Autowired
     private LocationRepository locationRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private TaxiRepository taxiRepository;
 
     @Override
     public List<Location> getLocationsByClient(Client client) {
-        //get list of location by client, with findAll and a filter
         List<Location> llocs = locationRepository.findLocationByClient(client);
         llocs.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
         return llocs;

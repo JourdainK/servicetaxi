@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface InterfTaxiService extends InterfService<Taxi> {
     public List<Location> getLocationsByTaxi(Taxi taxi);
+
 }
