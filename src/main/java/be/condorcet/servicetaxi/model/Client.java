@@ -9,7 +9,7 @@ import java.util.Objects;
 
 // underscore was causing trouble in the variable from the SQL table, got help from Arthur Lorfevre And Daniele Nicolo
 //https://stackoverflow.com/questions/23456197/spring-data-jpa-repository-underscore-on-entity-column-name
-//avoiding the pain of having to change all the databasex²
+//avoiding the pain of having to change all the database
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

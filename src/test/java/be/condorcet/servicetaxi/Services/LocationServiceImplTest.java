@@ -48,7 +48,6 @@ class LocationServiceImplTest {
             System.out.println("client is created : " + client);
             BigDecimal prixKm = new BigDecimal(1.99).setScale(2, RoundingMode.HALF_UP);
             taxi = new Taxi(null,"T-XXX-001",2,prixKm, new ArrayList<>());
-
             taxiServiceImpl.create(taxi);
             System.out.println("taxi is created : " + taxi);
             adrDepart = new Adresse(null,1000,"Bruxelles","Rue Test","Belgique");
@@ -179,10 +178,8 @@ class LocationServiceImplTest {
             assertEquals(location.getKmtotal(), locRead.getKmtotal(), "location kmtotal not read correctly");
             assertEquals(location.getNbrpassagers(), locRead.getNbrpassagers(), "location nbrpassagers not read correctly");
             assertEquals(location.getTotal(), locRead.getTotal(), "location total not read correctly");
-            //here's the culprit. The taxi is actually the same, but give out an error, go figure.
             //had to redefine the equals method in the Taxi class to make it work.
             assertEquals(location.getTaxi(), locRead.getTaxi(), "location taxi not read correctly");
-            //second culprit, the client is the same but the test fails.
             //had to redefine the equals method in the Client class to make it work.
             assertEquals(location.getClient(), locRead.getClient(), "location client not read correctly");
             assertEquals(location.getAdressedep(), locRead.getAdressedep(), "location adressedep not read correctly");
@@ -208,6 +205,8 @@ class LocationServiceImplTest {
     @Test
     void delete() {
         try{
+            //TODO test delete address from a location
+            //TODO check an exception is thrown when trying to delete an address that is used in a location !
             locationServiceImpl.delete(location);
             Assertions.assertThrows(Exception.class, () -> {
                 locationServiceImpl.read(location.getIdlocation());

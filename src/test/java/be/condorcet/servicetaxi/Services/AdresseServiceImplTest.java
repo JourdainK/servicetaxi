@@ -1,6 +1,9 @@
 package be.condorcet.servicetaxi.Services;
 
 import be.condorcet.servicetaxi.model.Adresse;
+import be.condorcet.servicetaxi.model.Client;
+import be.condorcet.servicetaxi.model.Location;
+import be.condorcet.servicetaxi.model.Taxi;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,6 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,9 +24,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdresseServiceImplTest {
 
     private Adresse address;
+    private Client client;
+    private Taxi taxi;
+    private Location location;
 
     @Autowired
     private AdresseServiceImpl adresseServiceImpl;
+    @Autowired
+    private LocationServiceImpl locationServiceImpl;
+    @Autowired
+    private TaxiServiceImpl taxiServiceImpl;
+    @Autowired
+    private ClientServiceImpl clientServiceImpl;
+
     @BeforeEach
     void setUp() {
         try{
@@ -100,6 +118,50 @@ class AdresseServiceImplTest {
             fail("Adresse.delete() failed : " + e);
         }
     }
+
+
+    //TODO fix this
+    /*
+    @Test
+    void delete2(){
+        try{
+            Adresse adr2 = new Adresse(null,5000,"Namur","Rue Test delete","10B");
+            client = new Client("testmail@test.com","NameTest", "SurnameTest","065123123");
+            BigDecimal prixKm = new BigDecimal(1.99).setScale(2, RoundingMode.HALF_UP);
+            taxi = new Taxi(null,"T-XET-009",4,prixKm, new ArrayList<>());
+            adresseServiceImpl.create(adr2);
+            System.out.println("address is created : " + adr2);
+            clientServiceImpl.create(client);
+            System.out.println("client is created : " + client);
+            taxiServiceImpl.create(taxi);
+            System.out.println("taxi is created : " + taxi);
+            locationServiceImpl.create(location);
+            location = new Location(null, Date.valueOf(LocalDate.of(1900,1,1)),10,2,null,taxi,client,adr2,adr2);
+            locationServiceImpl.create(location);
+            System.out.println("location created : " + location);
+            //test delete2 method , deleting address should give an error (linked to a location)
+            Assertions.assertThrows(Exception.class, () -> {
+                adresseServiceImpl.delete(adr2);
+            },"Error : address has been deleted");
+
+            locationServiceImpl.delete(location);
+            System.out.println("location is deleted2");
+
+            taxiServiceImpl.delete(taxi);
+            System.out.println("Taxi is deleted2");
+
+            adresseServiceImpl.delete(adr2);
+            System.out.println("address is deleted2");
+
+            clientServiceImpl.delete(client);
+            System.out.println("client is deleted2");
+
+        }catch (Exception e){
+            fail("Adresse.delete2() failed : " + e);
+        }
+    }
+
+     */
 
     @Test
     void all() {

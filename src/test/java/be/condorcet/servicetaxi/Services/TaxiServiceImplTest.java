@@ -119,7 +119,6 @@ class TaxiServiceImplTest {
         }
     }
 
-    //TODO pick up here with specials about taxis
     //I can't check locations for the taxi created for the tests
     //picking a taxi that has locations in the DB, and checking if the list is not empty
     @Test
