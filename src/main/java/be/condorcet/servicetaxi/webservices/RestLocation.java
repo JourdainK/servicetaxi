@@ -2,12 +2,15 @@ package be.condorcet.servicetaxi.webservices;
 
 import be.condorcet.servicetaxi.Services.InterfClientService;
 import be.condorcet.servicetaxi.Services.InterfLocationService;
+import be.condorcet.servicetaxi.Services.InterfTaxiService;
 import be.condorcet.servicetaxi.model.Location;
+import be.condorcet.servicetaxi.model.Taxi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
@@ -19,6 +22,8 @@ public class RestLocation {
     //TODO check postman for other method than GET
     @Autowired
     private InterfClientService clientServiceImpl;
+    @Autowired
+    private InterfTaxiService taxiServiceImpl;
 
     //get location by id
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -28,13 +33,6 @@ public class RestLocation {
         return new ResponseEntity<>(location, HttpStatus.OK);
     }
 
-    //get a location by client ID
-    @RequestMapping(value = "/client={id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Location>> getLocationByClient(@PathVariable(value = "id") int id)throws Exception{
-        System.out.println("Seeking a location with client id " + id);
-        List<Location> locations = locationServiceImpl.getLocationsByClient(clientServiceImpl.read(id));
-        return new ResponseEntity<>(locations, HttpStatus.OK);
-    }
 
     //create a location
     @RequestMapping(value = "", method = RequestMethod.POST)
@@ -74,6 +72,33 @@ public class RestLocation {
     public ResponseEntity<List<Location>> getAllLocations() throws Exception{
         System.out.println("Getting all locations");
         List<Location> locations = locationServiceImpl.all();
+        return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
+
+    //get a location by client ID
+    @RequestMapping(value = "/client={id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> getLocationByClient(@PathVariable(value = "id") int id)throws Exception{
+        System.out.println("Seeking a location with client id " + id);
+        List<Location> locations = locationServiceImpl.getLocationsByClient(clientServiceImpl.read(id));
+        return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
+
+    //get a location by taxi
+    @RequestMapping(value = "/taxi={id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> getLocationByTaxi(@PathVariable(value = "id") int id)throws Exception{
+        System.out.println("Seeking a location with taxi id " + id);
+        Taxi taxi = taxiServiceImpl.read(id);
+        List<Location> locations = locationServiceImpl.getLocationsByTaxi(taxi);
+        return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
+
+    //get a location by date
+    @RequestMapping(value = "/date={date}", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> getLocationByDate(@PathVariable(value = "date") String date)throws Exception{
+        System.out.println("Seeking a location with date " + date);
+        //sql date format needed
+        Date dateLoc = Date.valueOf(date);
+        List<Location> locations = locationServiceImpl.getLocationsByDate(dateLoc);
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 

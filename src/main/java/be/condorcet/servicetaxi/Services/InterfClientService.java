@@ -7,5 +7,5 @@ import java.util.List;
 public interface InterfClientService extends InterfService<Client> {
     public List<Client> read(String nom);
 
-    List<Client> read(String nom, String prenom, String mail);
+    Client read(String nom, String prenom, String mail);
 }
