@@ -19,7 +19,6 @@ import java.util.List;
 public class RestLocation {
     @Autowired
     private InterfLocationService locationServiceImpl;
-    //TODO check postman for other method than GET
     @Autowired
     private InterfClientService clientServiceImpl;
     @Autowired

@@ -14,13 +14,14 @@ import java.util.Optional;
 public class ClientServiceImpl implements InterfClientService {
 
     @Autowired ClientRepository clientRepository;
+
     @Override
-    public List<Client> read(String nom) {
-        return clientRepository.findByNomcli(nom+"%");
+    public List<Client> findByNomcli(String nom) {
+        return clientRepository.findByNomcli(nom);
     }
 
     @Override
-    public List<Client> read(String nom, String prenom, String mail) {
+    public Client read(String nom, String prenom, String mail) {
         return clientRepository.findByNomcliAndPrenomcliAndMail(nom, prenom, mail);
     }
 

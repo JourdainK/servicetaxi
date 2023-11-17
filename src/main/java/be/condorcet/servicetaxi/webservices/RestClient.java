@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "*")
 @RestController
 @RequestMapping("/clients")
 public class RestClient {
@@ -23,9 +25,9 @@ public class RestClient {
     }
 
     //search client by last name, first name and mail
-    @RequestMapping(value = "/{nom}/{prenom}/{tel}", method = RequestMethod.GET)
-    public ResponseEntity<Client> getClientUnique(@PathVariable(value = "nom") String nom,
-                                                  @PathVariable(value = "prenom") String prenom,
+    @RequestMapping(value = "/{nomcli}/{prenomcli}/{mail}", method = RequestMethod.GET)
+    public ResponseEntity<Client> getClientUnique(@PathVariable(value = "nomcli") String nom,
+                                                  @PathVariable(value = "prenomcli") String prenom,
                                                   @PathVariable(value = "mail") String mail)  throws Exception{
         System.out.println("recherche du client "+nom+" "+prenom+" "+mail);
         Client client = clientServiceImpl.read(nom,prenom,mail);
@@ -33,17 +35,17 @@ public class RestClient {
     }
 
     //search by name
-    @RequestMapping(value = "/nom={nom}", method = RequestMethod.GET)
-    public ResponseEntity<List<Client>> getClientByNom(@PathVariable(value = "nom") String nom) throws Exception{
-        System.out.println("Seeking a client with name " + nom);
-        List<Client> clients = clientServiceImpl.read(nom);
+    @RequestMapping(value = "/nom={nomcli}", method = RequestMethod.GET)
+    public ResponseEntity<List<Client>> getClientByNom(@PathVariable(value = "nomcli") String nomcli) throws Exception{
+        System.out.println("Seeking a client with name " + nomcli);
+        List<Client> clients = clientServiceImpl.findByNomcli(nomcli);
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
     //create client
     @RequestMapping(value = "", method = RequestMethod.POST)
     public ResponseEntity<Client> createClient(@RequestBody Client client) throws Exception {
-        System.out.println("Creating a client " + client);
+        System.out.println("Creating a client  " + client);
         clientServiceImpl.create(client);
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
@@ -67,7 +69,7 @@ public class RestClient {
     }
 
     //get all clients
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> getAllClients() throws Exception{
         System.out.println("Getting all clients");
         List<Client> clients = clientServiceImpl.all();

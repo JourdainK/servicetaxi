@@ -3,7 +3,6 @@ package be.condorcet.servicetaxi.webservices;
 import be.condorcet.servicetaxi.Services.InterfTaxiService;
 import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 @RequestMapping("/taxis")
 public class RestTaxi {
@@ -36,10 +36,9 @@ public class RestTaxi {
 
     //update taxi
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Taxi> updateTaxi(@PathVariable(value = "id") int id, @RequestBody Taxi updtaxi) throws Exception{
+    public ResponseEntity<Taxi> updateTaxi(@PathVariable(value = "id") int id, @RequestBody Taxi taxi) throws Exception{
         System.out.println("Updating a taxi with id " + id);
-        updtaxi.setIdtaxi(id);
-        Taxi taxiUpdated = taxiServiceImpl.update(updtaxi);
+        Taxi taxiUpdated = taxiServiceImpl.update(taxi);
         return new ResponseEntity<>(taxiUpdated, HttpStatus.OK);
     }
 
@@ -53,7 +52,7 @@ public class RestTaxi {
     }
 
     //get all taxis
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Taxi>> getAllTaxis() throws Exception{
         System.out.println("Getting all taxis");
         List<Taxi> taxis = taxiServiceImpl.all();
@@ -75,7 +74,6 @@ public class RestTaxi {
         System.out.println("Exception handled: " + e.getMessage());
         return ResponseEntity.notFound().header("Error", e.getMessage()).build();
     }
-
 
 
 

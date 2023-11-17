@@ -30,7 +30,7 @@ public class Taxi {
     //BigDecimal prixKm = new BigDecimal(1.99).setScale(2, RoundingMode.HALF_UP);
     private BigDecimal prixkm;
     @JsonIgnore
-    @OneToMany(mappedBy = "taxi", fetch = FetchType.LAZY,cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "taxi")
     @ToString.Exclude
     private List<Location> llocs;
 

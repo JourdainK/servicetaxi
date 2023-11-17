@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
 @RestController
 @RequestMapping("/addresses")
 public class RestAdresse {
@@ -50,7 +52,7 @@ public class RestAdresse {
     }
 
     //get all addresses
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity<List<Adresse>> getAllAddresses() throws Exception{
         System.out.println("Getting all addresses");
         List<Adresse> adresses = adresseServiceImpl.all();
