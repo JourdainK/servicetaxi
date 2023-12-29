@@ -56,6 +56,7 @@ public class RestTaxi {
     public ResponseEntity<List<Taxi>> getAllTaxis() throws Exception{
         System.out.println("Getting all taxis");
         List<Taxi> taxis = taxiServiceImpl.all();
+        taxis.sort((t1, t2) -> t1.getIdtaxi().compareTo(t2.getIdtaxi()));
         return new ResponseEntity<>(taxis, HttpStatus.OK);
     }
 
