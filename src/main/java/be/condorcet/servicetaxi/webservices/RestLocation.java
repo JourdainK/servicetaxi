@@ -71,6 +71,7 @@ public class RestLocation {
     public ResponseEntity<List<Location>> getAllLocations() throws Exception{
         System.out.println("Getting all locations");
         List<Location> locations = locationServiceImpl.all();
+        locations.sort((o1, o2) -> o1.getIdlocation() - o2.getIdlocation());
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 

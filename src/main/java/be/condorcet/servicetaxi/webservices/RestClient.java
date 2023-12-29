@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -38,7 +39,8 @@ public class RestClient {
     @RequestMapping(value = "/nom={nomcli}", method = RequestMethod.GET)
     public ResponseEntity<List<Client>> getClientByNom(@PathVariable(value = "nomcli") String nomcli) throws Exception{
         System.out.println("Seeking a client with name " + nomcli);
-        List<Client> clients = clientServiceImpl.findByNomcli(nomcli);
+        List<Client> clients = clientServiceImpl.findClientByNomcliLike(nomcli + "%");
+        clients.sort(Comparator.comparing(Client::getIdclient));
         return new ResponseEntity<>(clients, HttpStatus.OK);
     }
 
@@ -82,9 +84,6 @@ public class RestClient {
         System.out.println("Exception handled " + e.getMessage());
         return ResponseEntity.notFound().header("Error ", e.getMessage()).build();
     }
-
-
-
 
 
 }

@@ -38,7 +38,6 @@ public class LocationServiceImpl implements InterfLocationService{
         return llocDate;
     }
 
-
     @Override
     public Location create(Location location) throws Exception {
         locationRepository.save(location);

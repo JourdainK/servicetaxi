@@ -3,6 +3,7 @@ package be.condorcet.servicetaxi.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -25,7 +26,8 @@ public class Location {
     private Integer kmtotal;
     @NonNull
     private Integer nbrpassagers;
-    //total will be calculated by a trigger in the database (INSERT_PRIXTOT_TRIGGER)
+
+    @Formula("kmtotal * (select t.prixkm from APITAXI t where t.id_taxi = id_taxi)")
     private BigDecimal total;
     @NonNull
     @ManyToOne @JoinColumn(name = "id_taxi")

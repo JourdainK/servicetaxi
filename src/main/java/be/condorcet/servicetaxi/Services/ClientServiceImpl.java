@@ -21,6 +21,11 @@ public class ClientServiceImpl implements InterfClientService {
     }
 
     @Override
+    public List<Client> findClientByNomcliLike(String nom) {
+        return clientRepository.findClientByNomcliLike(nom);
+    }
+
+    @Override
     public Client read(String nom, String prenom, String mail) {
         return clientRepository.findByNomcliAndPrenomcliAndMail(nom, prenom, mail);
     }

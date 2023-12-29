@@ -18,4 +18,5 @@ public interface LocationRepository extends JpaRepository<Location, Integer> {
     public List<Location> findLocationByTaxi(Taxi taxi);
 
     public List<Location> findLocationByDateloc(Date date);
+
 }
