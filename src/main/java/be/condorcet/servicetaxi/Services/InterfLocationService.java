@@ -14,4 +14,6 @@ public interface InterfLocationService extends InterfService<Location>{
 
     public List<Location> getLocationsByDate(Date date);
 
+    public List<Location> getLocationsBetween(Taxi taxi, Date date1, Date date2);
+
 }

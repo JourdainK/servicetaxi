@@ -14,7 +14,6 @@ import java.util.*;
 @RequestMapping("/service")
 public class GestClient {
 
-    //TODO remake the code with ClientServiceImpl
     @Autowired
     ClientRepository clientRepository;
 

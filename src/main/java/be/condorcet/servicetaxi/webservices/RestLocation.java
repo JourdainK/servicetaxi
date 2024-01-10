@@ -102,6 +102,21 @@ public class RestLocation {
         return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 
+    //get a location by taxi and 2 dates
+    @RequestMapping(value = "/taxi={id}/date1={date1}/date2={date2}", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> getLocationByTaxiAndDates(@PathVariable(value = "id") int id,
+                                                                    @PathVariable(value = "date1") String date1,
+                                                                    @PathVariable(value = "date2") String date2)throws Exception{
+        System.out.println("Seeking a location with taxi id " + id + " between " + date1 + " and " + date2);
+        //sql date format needed
+        Date dateLoc1 = Date.valueOf(date1);
+        Date dateLoc2 = Date.valueOf(date2);
+        Taxi taxi = taxiServiceImpl.read(id);
+        List<Location> locations = locationServiceImpl.getLocationsBetween(taxi, dateLoc1, dateLoc2);
+        return new ResponseEntity<>(locations, HttpStatus.OK);
+    }
+
+
     //handling errors
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Void> exceptionHandler(Exception e){

@@ -34,7 +34,9 @@ public class Client {
     @NonNull
     private String tel;
     @JsonIgnore
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    //LAZY default mode under
+    //@OneToMany(mappedBy = "client")
     @ToString.Exclude
     private List<Location> llocations;
 

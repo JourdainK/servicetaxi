@@ -1,8 +1,6 @@
 package be.condorcet.servicetaxi.Services;
 
-import be.condorcet.servicetaxi.Repositories.ClientRepository;
 import be.condorcet.servicetaxi.Repositories.LocationRepository;
-import be.condorcet.servicetaxi.Repositories.TaxiRepository;
 import be.condorcet.servicetaxi.model.Client;
 import be.condorcet.servicetaxi.model.Location;
 import be.condorcet.servicetaxi.model.Taxi;
@@ -37,6 +35,13 @@ public class LocationServiceImpl implements InterfLocationService{
         List<Location> llocDate = locationRepository.findLocationByDateloc(date);
         return llocDate;
     }
+
+    @Override
+    public List<Location> getLocationsBetween(Taxi taxi, Date date1, Date date2) {
+        List<Location> llocTaxi = locationRepository.findLocationByTaxiAndDatelocBetween(taxi, date1, date2);
+        return llocTaxi;
+    }
+
 
     @Override
     public Location create(Location location) throws Exception {

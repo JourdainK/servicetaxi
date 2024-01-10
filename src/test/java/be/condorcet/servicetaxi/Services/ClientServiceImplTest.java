@@ -1,6 +1,7 @@
 package be.condorcet.servicetaxi.Services;
 
 import be.condorcet.servicetaxi.model.Client;
+import be.condorcet.servicetaxi.model.Location;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -123,5 +124,6 @@ class ClientServiceImplTest {
         }
     }
 
-    //TODO specials
+   //test get location of a client
+
 }

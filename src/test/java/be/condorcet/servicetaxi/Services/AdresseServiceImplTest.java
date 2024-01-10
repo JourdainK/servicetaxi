@@ -120,8 +120,7 @@ class AdresseServiceImplTest {
     }
 
 
-    //TODO fix this
-    /*
+
     @Test
     void delete2(){
         try{
@@ -135,11 +134,10 @@ class AdresseServiceImplTest {
             System.out.println("client is created : " + client);
             taxiServiceImpl.create(taxi);
             System.out.println("taxi is created : " + taxi);
-            locationServiceImpl.create(location);
             location = new Location(null, Date.valueOf(LocalDate.of(1900,1,1)),10,2,null,taxi,client,adr2,adr2);
             locationServiceImpl.create(location);
             System.out.println("location created : " + location);
-            //test delete2 method , deleting address should give an error (linked to a location)
+            //checkif deleting address is possible => not possible because of location still linked to it (FK)
             Assertions.assertThrows(Exception.class, () -> {
                 adresseServiceImpl.delete(adr2);
             },"Error : address has been deleted");
@@ -150,6 +148,7 @@ class AdresseServiceImplTest {
             taxiServiceImpl.delete(taxi);
             System.out.println("Taxi is deleted2");
 
+            //now delete is possible, because loc has been deleted before
             adresseServiceImpl.delete(adr2);
             System.out.println("address is deleted2");
 
@@ -161,7 +160,6 @@ class AdresseServiceImplTest {
         }
     }
 
-     */
 
     @Test
     void all() {

@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,9 @@ class TaxiServiceImplTest {
     private Taxi taxi;
     @Autowired
     private TaxiServiceImpl taxiServiceImpl;
+
+    @Autowired
+    private LocationServiceImpl LocationServiceImpl;
 
 
     @BeforeEach
@@ -126,6 +130,28 @@ class TaxiServiceImplTest {
         try{
             Taxi taxiWithLocations = taxiServiceImpl.read(6);
             List<Location> list = taxiServiceImpl.getLocationsByTaxi(taxiWithLocations);
+            //same method is present in LocationServiceImpl / LocationRepository
+            boolean found = false;
+            int i=1;
+            for(Location l : list){
+                System.out.println(i + " - " + l);
+                if(l.getIdlocation() != null){
+                    found = true;
+                }
+                i++;
+            }
+            assertTrue(found, "location not found in the list");
+        }catch (Exception e){
+            fail("failed, couldn't get all the Taxis : " + e);
+        }
+    }
+
+
+    @Test
+    void getLocationsBetween(){
+        try{
+            Taxi taxiWithLocations = taxiServiceImpl.read(1);
+            List<Location> list = taxiServiceImpl.getLocationsBetween(taxiWithLocations, Date.valueOf("2023-01-01"),Date.valueOf("2023-12-31"));
             //same method is present in LocationServiceImpl / LocationRepository
             boolean found = false;
             int i=1;

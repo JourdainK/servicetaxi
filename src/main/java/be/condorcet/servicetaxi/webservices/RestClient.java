@@ -25,7 +25,7 @@ public class RestClient {
         return new ResponseEntity<>(client, HttpStatus.OK);
     }
 
-    //search client by last name, first name and mail
+    //search client by lastname, firstname and mail
     @RequestMapping(value = "/{nomcli}/{prenomcli}/{mail}", method = RequestMethod.GET)
     public ResponseEntity<Client> getClientUnique(@PathVariable(value = "nomcli") String nom,
                                                   @PathVariable(value = "prenomcli") String prenom,

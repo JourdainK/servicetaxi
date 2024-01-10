@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -50,6 +51,13 @@ public class TaxiServiceImpl implements InterfTaxiService{
     @Override
     public List<Location> getLocationsByTaxi(Taxi taxi) {
         List<Location> llocTaxi = locationRepository.findLocationByTaxi(taxi);
+        return llocTaxi;
+    }
+
+
+    @Override
+    public List<Location> getLocationsBetween(Taxi taxi, Date date1, Date date2) {
+        List<Location> llocTaxi = taxiRepository.findLocationBetween(taxi, date1, date2);
         return llocTaxi;
     }
 }

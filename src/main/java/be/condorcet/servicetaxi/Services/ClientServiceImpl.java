@@ -2,6 +2,7 @@ package be.condorcet.servicetaxi.Services;
 
 import be.condorcet.servicetaxi.Repositories.ClientRepository;
 import be.condorcet.servicetaxi.model.Client;
+import be.condorcet.servicetaxi.model.Location;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,4 +59,5 @@ public class ClientServiceImpl implements InterfClientService {
     public List<Client> all() throws Exception {
         return clientRepository.findAll();
     }
+
 }

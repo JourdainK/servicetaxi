@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*",exposedHeaders = "*")
@@ -66,6 +67,23 @@ public class RestTaxi {
         System.out.println("Getting all locations by taxi with id " + id);
         Taxi taxi = taxiServiceImpl.read(id);
         List<Location> llocs = taxiServiceImpl.getLocationsByTaxi(taxi);
+        return new ResponseEntity<>(llocs, HttpStatus.OK);
+    }
+
+    //get all locations by taxi between 2 dates
+    @RequestMapping(value = "/idtaxi={id}/date1={date1}/date2={date2}", method = RequestMethod.GET)
+    public ResponseEntity<List<Location>> getLocationsBetween(@PathVariable(value = "id") int id,
+                                                              @PathVariable(value = "date1") Date date1,
+                                                              @PathVariable(value = "date2") Date date2) throws Exception{
+        System.out.println("Getting all locations by taxi with id " + id + " between " + date1 + " and " + date2);
+        Taxi taxi = taxiServiceImpl.read(id);
+        System.out.println("taxi: " + taxi);
+        List<Location> llocs = taxiServiceImpl.getLocationsBetween(taxi, date1, date2);
+        if(llocs.isEmpty()){
+            System.out.println("No locations found for the given taxi between the specified dates.");
+        } else {
+            System.out.println("Found " + llocs.size() + " locations for the given taxi between the specified dates.");
+        }
         return new ResponseEntity<>(llocs, HttpStatus.OK);
     }
 
